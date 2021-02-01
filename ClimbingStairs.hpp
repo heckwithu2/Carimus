@@ -17,8 +17,7 @@ public:
     hothMountain(long long);
     //methods
     bigint climbingStairs();
-    //friends
-    friend long long factorial(std::vector<long long>&);
+   
 };
 
 //method definitions
@@ -26,13 +25,6 @@ hothMountain::hothMountain(long long _totalSteps) {
     totalSteps = _totalSteps;
 }
 
-long long factorial(std::vector<long long>& factorialNumerators) {
-    long long product = 1;
-    for (auto it = factorialNumerators.begin(); it != factorialNumerators.end(); ++it) {
-        product *= *it;
-    }
-    return product;
-}
 
 bigint hothMountain::climbingStairs() {
     //this returns the lowest amount of combos os 1 & 2 possible for the given number.
@@ -75,20 +67,16 @@ bigint hothMountain::climbingStairs() {
             // make sure there is more than one element of each set, otherwise no factorials needed
             if (largestSet != 1 && smallestSet != 1) {
                 //get our factorials
-                std::vector<long long> factorialNumerators;
-                for (long long multiply = largestSet + 1; slots >= multiply; ++multiply) {
-                    factorialNumerators.push_back(multiply);
-                }
-                //multiply the numbers in the vector
-                long long numerator = factorial(factorialNumerators);
+                //start with numerator
+                bigint upperbound(slots);
+                bigint lowerbound(largestSet + 1);
+                bigint numerator = factorial(upperbound, lowerbound);
 
-                std::vector<long long> factorialDenominators;
-                for (long long multiply = smallestSet; smallestSet <= multiply; --multiply) {
-                    factorialDenominators.push_back(multiply);
-                }
-                //multiply the numbers in the vector
-                long long denominator = factorial(factorialDenominators);
-
+                //next denomenator
+                upperbound = smallestSet;
+                lowerbound = 1;
+                bigint denomenator = factorial(upperbound, lowerbound);
+               
                 //divide, then add
                 long long diffInt = numerator / denominator;
                 bigint diff(diffInt);

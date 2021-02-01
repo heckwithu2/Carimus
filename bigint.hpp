@@ -1,5 +1,3 @@
-#pragma once
-
 /**
 * JEREMIAH HECK
 * BIGINT
@@ -29,29 +27,24 @@ public:
 	//methods/friends
 	bigint timesDigit(const int);
 	bigint timesTen(const int);
-	bigint operator*(bigint& B);
-
+	bigint operator*(bigint B);
+	
 	bigint operator=(char[]);
+	bool operator>=(bigint&);
 	int operator[] (const int index) const;
+	//bigint operator-(int&);
+	//bigint operator-(bigint&);
+	//bigint operator+(int&);
 	bigint operator+(bigint&);
 	bool operator==(int v);
 	bool operator==(bigint& x);
 	bool operator==(const char x[]);
+
+	friend bigint factorial(bigint, bigint);
 	friend std::ostream& operator<<(std::ostream& os, const bigint& bigint);
 };
 
-
-/**
-* Jeremiah Heck
-* bigint
-* CS 23001
-*/
-
-#include "bigint.hpp"
-#include <iostream>
-#include <fstream>
-
-
+//Method Definitions
 bigint::bigint() {
 	for (int i = 0; i < CAPACITY; ++i) {
 		number[i] = 0;
@@ -135,6 +128,16 @@ bool bigint::operator==(int v) {
 		}
 	} return true;
 }
+
+bool bigint::operator>=(bigint& x) {
+	for (int i = 0; i < CAPACITY; ++i) {
+		if (number[i] >= x.number[i]) {
+			return true;
+		}
+	} return false;
+}
+
+
 bool bigint::operator==(bigint& x) {
 	for (int i = 0; i < CAPACITY; ++i) {
 		if (number[i] != x.number[i]) {
@@ -270,7 +273,7 @@ bigint bigint::timesTen(const int x) {
 	return number;
 }
 
-bigint bigint::operator*(bigint& B) {
+bigint bigint::operator*(bigint B) {
 
 	//To compute A * B
 	//B[0] is 1s place, B[1] is 10s place, B[2] is 100s place, etc.
@@ -286,6 +289,13 @@ bigint bigint::operator*(bigint& B) {
 		std::cout << product << "|";
 	}
 	return product;
+}
+
+bigint factorial(bigint upperBound, bigint lowerbound) {
+	bigint minusOne(-1);
+	if (upperBound >= lowerbound) {
+		return upperBound = upperBound * factorial(upperBound + minusOne, lowerbound);
+	}
 }
 
 #endif

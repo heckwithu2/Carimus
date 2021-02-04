@@ -23,9 +23,7 @@
 // •	Output: 3
 // o	There are three ways to the top (1 + 1 + 1), (1 + 2), and (2 + 1).
 #include "bigint.hpp"
-
 #include "ClimbingStairs.hpp"
-
 #include <iostream>
 #include <vector>
 
@@ -45,6 +43,7 @@ int main(int argc, char* argv[]) {
             hothMountain mountain(totalSteps);
             //compute the combinations
             bigint totalPermutations = mountain.climbingStairs();
+            std::cout << std::endl;
             std::cout << "This is the amount of ways to the top!:" << totalPermutations << std::endl;
             std::cout << std::endl;
         }

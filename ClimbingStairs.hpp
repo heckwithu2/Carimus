@@ -17,7 +17,7 @@ public:
     hothMountain(long long);
     //methods
     bigint climbingStairs();
-   
+
 };
 
 //method definitions
@@ -36,8 +36,8 @@ bigint hothMountain::climbingStairs() {
     int littleStep = 1;
     int bigStep = 2;
 
-    bigint ways = 0;
-
+    bigint ways(0);
+    std::cout << "Calculating Factorials! Patience please. :D" ;
     for (long long elements = totalSteps; elements >= lowestBound; --elements) {
         //grab the emount of little and big steps possible, starting at the most big
         long long amountOfBigSteps = maxTwos;
@@ -68,19 +68,25 @@ bigint hothMountain::climbingStairs() {
             if (largestSet != 1 && smallestSet != 1) {
                 //get our factorials
                 //start with numerator
-                bigint upperbound(slots);
-                bigint lowerbound(largestSet + 1);
-                bigint numerator = factorial(upperbound, lowerbound);
+                bigint upperboundNumerator(slots);
+                bigint lowerboundNumerator(largestSet + 1);
+                bigint numerator = factorial(upperboundNumerator, lowerboundNumerator);
 
                 //next denomenator
-                upperbound = smallestSet;
-                lowerbound = 1;
-                bigint denomenator = factorial(upperbound, lowerbound);
-               
+                bigint upperboundDenominator(smallestSet);
+                bigint lowerboundDenominator(1);
+                bigint denominator = factorial(upperboundDenominator, lowerboundDenominator);
+
                 //divide, then add
-                long long diffInt = numerator / denominator;
-                bigint diff(diffInt);
-                ways = ways + diff;
+                bigint diff = numerator / denominator;
+                
+                if (diff.getSize() + ways.getSize() < ways.getCapacity()) {
+                    std::cout << ".";
+                    ways = ways + diff; 
+                } else {
+                    std::cout << "This number is too big even for me to calculate!";
+                    return ways;
+                }
             }
             else {
                 //this means there is only one of "2" or "1"
@@ -98,7 +104,7 @@ bigint hothMountain::climbingStairs() {
                 }
                 else {
                     ways = ways * smallestSetBig;
-                    ways = ways * largestSetBig;
+                    ways = ways * largestSetBig; 
                 }
             }
         }

@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
             std::cin.clear();
             std::cin.ignore(1, '\n');
         }
-        std::cout << "Press 'x' to quit. Or any other character to continue." << std::endl;
+        std::cout << "Press 'x' to quit. Or any 6other character to continue." << std::endl;
         std::cout << std::endl;
         //make sure user input is valid
         if (!(std::cin >> again)) {
